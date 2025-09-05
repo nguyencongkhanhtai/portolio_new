@@ -115,8 +115,14 @@ const ProjectCard3D: React.FC<ProjectCard3DProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center space-x-2 px-3 md:px-4 py-2 md:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 btn-enhanced group/btn flex-1 justify-center shadow-lg text-sm"
+              >
+                <ExternalLink size={16} className="group-hover/btn:rotate-12 transition-transform duration-300" />
                 <span className="font-medium">{translations.projects.buttons.demo}</span>
+              </a>
+            )}
           </div>
+        </div>
+      </div>
     </div>
   );
 };
