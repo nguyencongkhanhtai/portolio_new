@@ -1,46 +1,124 @@
 import React from 'react';
-import { User } from 'lucide-react';
+import { Github, ExternalLink, Star } from 'lucide-react';
+import SkillTag from './SkillTag';
+import type { ProjectItem, Translations } from '../../types';
 
-interface AnimatedAvatarProps {
-  size?: 'sm' | 'md' | 'lg' | 'xl';
-  className?: string;
+interface ProjectCard3DProps {
+  project: ProjectItem;
+  translations: Translations;
+  language: string;
+  index: number;
 }
 
-const AnimatedAvatar: React.FC<AnimatedAvatarProps> = ({ 
-  size = 'lg', 
-  className = ''
+const ProjectCard3D: React.FC<ProjectCard3DProps> = ({ 
+  project, 
+  translations, 
+  language, 
+  index 
 }) => {
-  const sizeClasses = {
-    sm: 'w-12 h-12',
-    md: 'w-20 h-20',
-    lg: 'w-32 h-32',
-    xl: 'w-40 h-40'
-  };
-
-  const iconSizes = {
-    sm: 20,
-    md: 32,
-    lg: 48,
-    xl: 64
-  };
-
   return (
-    <div className={`relative ${sizeClasses[size]} ${className}`}>
-      {/* Main avatar container */}
-      <div className="relative w-full h-full rounded-full bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 p-1 animate-scaleIn group">
-        <div className="w-full h-full rounded-full bg-white dark:bg-gray-900 flex items-center justify-center relative overflow-hidden group-hover:bg-gradient-to-r group-hover:from-blue-50 group-hover:to-purple-50 dark:group-hover:from-blue-900/20 dark:group-hover:to-purple-900/20 transition-all duration-500">
-          <User 
-            size={iconSizes[size]} 
-            className="text-blue-600 group-hover:scale-110 transition-transform duration-300 animate-idle-wobble" 
+    <div
+      className="relative w-full fade-in-section group"
+      style={{ 
+        animationDelay: `${index * 0.2}s`
+      }}
+      onMouseMove={!isMobile ? handleMouseMove : undefined}
+      onMouseLeave={!isMobile ? handleMouseLeave : undefined}
+    >
+      <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden ring-0 hover:ring-4 hover:ring-blue-500/20 transition-all duration-300 relative group/card"
+           style={cardStyle}>
+        {/* Project image with overlay effects */}
+        <div className="h-48 md:h-56 relative overflow-hidden">
+          <img
+            src={project.image}
+            alt={project.title}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-110"
+            loading="lazy"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
           
-          {/* Subtle glow effect */}
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full" />
-        </div>
-      </div>
+          {/* Floating title */}
+          <div className="absolute bottom-4 left-4 right-4">
+            <h3 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover/card:scale-105 transition-transform duration-300">
+              {project.title}
+            </h3>
+            <div className="w-12 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full group-hover/card:w-20 transition-all duration-500"></div>
+          </div>
 
+          {/* Star decoration */}
+          <div className="absolute top-4 right-4">
+            <Star className="text-yellow-400 animate-pulse-slow" size={20} />
+          </div>
+        </div>
+        
+        <div className="p-4 md:p-6">
+          <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed text-sm md:text-base">
+            {project.description[language as keyof typeof project.description]}
+          </p>
+          
+          {/* Key Features - Mobile only */}
+          <div className="mb-4 md:mb-6">
+            <h4 className="font-bold text-base md:text-lg mb-3">
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                {translations.projects.keyFeatures}
+              </span>
+            </h4>
+            <ul className="space-y-2">
+              {project.features[language as keyof typeof project.features].slice(0, 3).map((feature: string, featureIndex: number) => (
+                <li 
+                  key={featureIndex} 
+                  className="flex items-start text-xs md:text-sm text-gray-600 dark:text-gray-300 animate-fadeInUp group/feature"
+                  style={{ animationDelay: `${featureIndex * 0.1}s` }}
+                >
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mt-1.5 md:mt-2 mr-2 md:mr-3 flex-shrink-0 group-hover/feature:scale-125 transition-transform duration-300"></div>
+                  <span className="group-hover/feature:text-gray-800 dark:group-hover/feature:text-gray-100 transition-colors duration-300 leading-relaxed">
+                    {feature}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
+          <div className="mb-4 md:mb-6">
+            <div className="flex flex-wrap gap-2">
+              {project.techStack.slice(0, 4).map((tech: string, techIndex: number) => (
+                <SkillTag
+                  key={techIndex}
+                  skill={tech}
+                  index={techIndex}
+                  variant="secondary"
+                  size="sm"
+                />
+              ))}
+              {project.techStack.length > 4 && (
+                <span className="px-2 py-1 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 text-gray-500 dark:text-gray-400 rounded-lg text-xs font-semibold">
+                  +{project.techStack.length - 4}
+                </span>
+              )}
+            </div>
+          </div>
+          
+          <div className="flex space-x-3">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center space-x-2 px-3 md:px-4 py-2 md:py-3 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-600 text-gray-700 dark:text-gray-300 rounded-xl hover:from-gray-800 hover:to-gray-900 hover:text-white btn-enhanced group/btn flex-1 justify-center text-sm"
+            >
+              <Github size={16} className="group-hover/btn:rotate-12 transition-transform duration-300" />
+              <span className="font-medium">{translations.projects.buttons.code}</span>
+            </a>
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center space-x-2 px-3 md:px-4 py-2 md:py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl hover:from-blue-700 hover:to-purple-700 btn-enhanced group/btn flex-1 justify-center shadow-lg text-sm"
+                <span className="font-medium">{translations.projects.buttons.demo}</span>
+          </div>
     </div>
   );
 };
 
-export default AnimatedAvatar;
+export default ProjectCard3D;

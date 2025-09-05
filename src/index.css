@@ -390,12 +390,6 @@ input:hover, textarea:hover {
 /* Mobile optimizations */
 /* Responsive optimizations */
 @media (max-width: 768px) {
-  /* Optimize animations for mobile performance */
-  * {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-  
   /* Reduce animation complexity on mobile */
   .card-hover {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -411,11 +405,6 @@ input:hover, textarea:hover {
   
   .btn-enhanced:hover {
     transform: translate3d(0, -1px, 0);
-  }
-  
-  /* Reduce animations on mobile for better performance */
-  .animate-float {
-    animation-duration: 4s;
   }
   
   /* Optimize backdrop blur for mobile */
@@ -457,28 +446,11 @@ input:hover, textarea:hover {
   .backface-hidden {
     backface-visibility: visible;
   }
-  
-  /* Simplify aurora on mobile */
-  .animate-aurora-1,
-  .animate-aurora-2,
-  .animate-aurora-3 {
-    animation: none;
-  }
-
-  /* Disable parallax on mobile */
-  .parallax-container {
-    transform: none !important;
-  }
 
   /* Simplify card effects on mobile */
   .card-3d {
     transform: none !important;
     perspective: none !important;
-  }
-
-  /* Better spacing for mobile */
-  .hero-section {
-    padding-top: 6rem;
   }
 
   /* Optimize text sizes for mobile */
@@ -491,17 +463,6 @@ input:hover, textarea:hover {
     font-size: 1.125rem;
     line-height: 1.4;
   }
-}
-
-/* Mobile device specific optimizations */
-.mobile-device .animate-float,
-.mobile-device .animate-pulse-slow {
-  animation-duration: 2s;
-}
-
-.mobile-device .card-hover::before,
-.mobile-device .btn-enhanced::before {
-  display: none;
 }
 
 /* Low power mode optimizations */

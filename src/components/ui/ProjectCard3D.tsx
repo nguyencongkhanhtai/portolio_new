@@ -81,13 +81,13 @@ const ProjectCard3D: React.FC<ProjectCard3DProps> = ({
           </div>
         </div>
         
-        <div className="p-4 md:p-6">
+        <div className="p-4 md:p-6 flex-1 flex flex-col">
           <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed text-sm md:text-base">
             {project.description[language as keyof typeof project.description]}
           </p>
           
           {/* Key Features - Mobile only */}
-          <div className="mb-4 md:mb-6">
+          <div className="mb-4 md:mb-6 flex-1">
             <h4 className="font-bold text-base md:text-lg mb-3">
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {translations.projects.keyFeatures}
@@ -128,7 +128,7 @@ const ProjectCard3D: React.FC<ProjectCard3DProps> = ({
             </div>
           </div>
           
-          <div className="flex space-x-3">
+          <div className="flex space-x-3 mt-auto">
             <a
               href={project.github}
               target="_blank"

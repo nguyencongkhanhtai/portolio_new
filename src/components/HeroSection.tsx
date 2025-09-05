@@ -39,12 +39,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, personalData })
         <div className="mb-8 md:mb-12 animate-fadeInUp">
           <ParallaxContainer intensity={0.15} className="relative mb-6 md:mb-8">
             <AnimatedAvatar size="lg" className="mx-auto mb-6 md:mb-8 md:!w-40 md:!h-40" />
-          </ParallaxContainer>
-
-          <ParallaxContainer intensity={0.08}>
-            <h1 className="text-4xl md:text-7xl font-bold mb-4 md:mb-6 animate-slideInLeft">
-              <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                {translations.name}
               </span>
             </h1>
           </ParallaxContainer>

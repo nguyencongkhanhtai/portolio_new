@@ -99,11 +99,6 @@ export const checkBatteryLevel = async (): Promise<{ level: number; charging: bo
 export const optimizeForMobile = () => {
   if (typeof window === 'undefined') return;
   
-  // Disable hover effects on mobile
-  if (isMobile()) {
-    document.documentElement.classList.add('mobile-device');
-  }
-  
   // Reduce animations if user prefers
   if (reducedMotion()) {
     document.documentElement.classList.add('reduce-motion');
