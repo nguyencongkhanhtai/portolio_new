@@ -1,20 +1,15 @@
 import React from 'react';
 import { User } from 'lucide-react';
-import { useWorkStatus } from '../../hooks/useWorkStatus';
 
 interface AnimatedAvatarProps {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
-  showStatus?: boolean;
 }
 
 const AnimatedAvatar: React.FC<AnimatedAvatarProps> = ({ 
   size = 'lg', 
-  className = '',
-  showStatus = true 
+  className = ''
 }) => {
-  const { getStatusEmoji, getStatusColor, shouldPulse } = useWorkStatus();
-
   const sizeClasses = {
     sm: 'w-12 h-12',
     md: 'w-20 h-20',
@@ -27,13 +22,6 @@ const AnimatedAvatar: React.FC<AnimatedAvatarProps> = ({
     md: 32,
     lg: 48,
     xl: 64
-  };
-
-  const statusSizes = {
-    sm: 'w-3 h-3 text-xs',
-    md: 'w-4 h-4 text-sm',
-    lg: 'w-6 h-6 text-base',
-    xl: 'w-8 h-8 text-lg'
   };
 
   return (
@@ -51,30 +39,6 @@ const AnimatedAvatar: React.FC<AnimatedAvatarProps> = ({
         </div>
       </div>
 
-      {/* Status ring */}
-      {showStatus && (
-        <div className={`absolute -inset-1 rounded-full ${getStatusColor()} ${shouldPulse() ? 'animate-ping' : ''}`} 
-             style={{ zIndex: -1 }}>
-          <div className={`w-full h-full rounded-full ${getStatusColor()}`} />
-        </div>
-      )}
-
-      {/* Status indicator with emoji */}
-      {showStatus && (
-        <div className={`absolute -bottom-1 -right-1 ${statusSizes[size]} ${getStatusColor()} rounded-full flex items-center justify-center border-2 border-white dark:border-gray-900 ${shouldPulse() ? 'animate-pulse' : ''} group-hover:scale-110 transition-transform duration-300`}>
-          <span className="text-xs leading-none">
-            {getStatusEmoji()}
-          </span>
-        </div>
-      )}
-
-      {/* Floating sparkles */}
-      <div className="absolute -top-1 -right-1 animate-float">
-        <div className="w-2 h-2 bg-yellow-400 rounded-full opacity-80" />
-      </div>
-      <div className="absolute -bottom-1 -left-1 animate-float" style={{ animationDelay: '1s' }}>
-        <div className="w-1.5 h-1.5 bg-pink-400 rounded-full opacity-60" />
-      </div>
     </div>
   );
 };

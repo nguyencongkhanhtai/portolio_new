@@ -39,12 +39,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ translations, personalData })
         <div className="mb-8 md:mb-12 animate-fadeInUp">
           <ParallaxContainer intensity={0.15} className="relative mb-6 md:mb-8">
             <AnimatedAvatar size="lg" className="mx-auto mb-6 md:mb-8 md:!w-40 md:!h-40" />
-            <div className="absolute -top-2 -right-2 animate-float">
-              <Sparkles className="text-yellow-500" size={24} />
-            </div>
-            <div className="absolute -bottom-2 -left-2 animate-float" style={{ animationDelay: '1s' }}>
-              <Sparkles className="text-pink-500" size={20} />
-            </div>
           </ParallaxContainer>
 
           <ParallaxContainer intensity={0.08}>
